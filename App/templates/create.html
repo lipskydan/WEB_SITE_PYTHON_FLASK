@@ -6,12 +6,20 @@
 
 {% block body %}
 <div class="container">
-    <h1>Добавление товара</h1>
-    <form method="post">
-        <input type="text" class="form-control" name="title" id="title" placeholder="Введите название"><br>
-        <input type="number" class="form-control" name="price" id="price" placeholder="Введите цену"><br>
-        <button class="btn btn-success" type="submit">Добавить товар</button>
-    </form>
+    <h1>Administration</h1>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+<!--        <button type="button" class="btn btn-lg btn-block btn-primary" data-href-template="/addItem">Добавити</button>-->
+              <a class="btn btn-lg btn-block btn-primary" href="/addItem">Добавить товар</a>
+        </div>
+        <div class="card-body">
+            <button type="button" class="btn btn-lg btn-block btn-primary">Видалити</button>
+        </div>
+    </div>
+
+
+
 </div>
 {% endblock %}
 

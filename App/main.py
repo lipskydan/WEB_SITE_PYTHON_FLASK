@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
 
 # БД - Таблица - Записи
 # Таблица:
@@ -19,6 +20,7 @@ class Item(db.Model):
     title = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     isActive = db.Column(db.Boolean, default=True)
+
     # text = db.Colum(db.Text, nullable=False)
 
     def __repr__(self):
@@ -43,13 +45,35 @@ def create():
 
 @app.route('/addItem', methods=['POST', 'GET'])
 def addItem():
-    if request.method
-    return render_template('addItem.html')
+    if request.method == "POST":
+        title = request.form['title']
+        price = request.form['price']
+
+        item = Item(title=title, price=price)
+
+        try:
+            db.session.add(item)
+            db.session.commit()
+            return redirect('/create')
+        except:
+            return "Error :("
+    else:
+        return render_template('addItem.html')
 
 
-@app.route('/delItem')
+@app.route('/delItem', methods=['POST', 'GET'])
 def delItem():
-    return render_template('delItem.html')
+    if request.method == "POST":
+
+        try:
+            title = request.form['title']
+            db.session.query(Item).filter(Item.title == title).delete()
+            db.session.commit()
+            return redirect('/create')
+        except:
+            return "Error :("
+    else:
+        return render_template('delItem.html')
 
 
 if __name__ == "__main__":

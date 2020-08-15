@@ -43,10 +43,10 @@ def price():
     return render_template('price.html', data=items)
 
 
-@app.route('/create')
-def create():
+@app.route('/administration')
+def administration():
     items = Item.query.order_by(Item.price).all()
-    return render_template('create.html', data=items)
+    return render_template('administration.html', data=items)
 
 
 @app.route('/addItem', methods=['POST', 'GET'])

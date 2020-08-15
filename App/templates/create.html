@@ -10,15 +10,33 @@
 
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-              <a class="btn btn-lg btn-block btn-primary" href="/addItem">Добавить</a>
+              <a class="btn btn-lg btn-block btn-primary" href="/addItem">Add course</a>
         </div>
         <div class="card-body">
-            <a class="btn btn-lg btn-block btn-primary" href="/delItem">Видалити</a>
+            <a class="btn btn-lg btn-block btn-primary" href="/delItem">Delete course</a>
         </div>
     </div>
 
     <div class="card mb-4 shadow-sm">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            {% for el in data %}
+            <tr>
+                <th scope="row">{{ el.id }}</th>
+                <td>{{ el.title }}</td>
+                <td>{{ el.price }} $</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 

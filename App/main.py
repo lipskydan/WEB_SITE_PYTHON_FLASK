@@ -29,8 +29,7 @@ class Item(db.Model):
 
 @app.route('/')
 def index():
-    items = Item.query.order_by(Item.price).all()
-    return render_template('index.html', data=items)
+    return render_template('index.html')
 
 
 @app.route('/about')
@@ -38,9 +37,16 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/price')
+def price():
+    items = Item.query.order_by(Item.price).all()
+    return render_template('price.html', data=items)
+
+
 @app.route('/create')
 def create():
-    return render_template('create.html')
+    items = Item.query.order_by(Item.price).all()
+    return render_template('create.html', data=items)
 
 
 @app.route('/addItem', methods=['POST', 'GET'])
@@ -64,9 +70,9 @@ def addItem():
 @app.route('/delItem', methods=['POST', 'GET'])
 def delItem():
     if request.method == "POST":
+        title = request.form['title']
 
         try:
-            title = request.form['title']
             db.session.query(Item).filter(Item.title == title).delete()
             db.session.commit()
             return redirect('/create')

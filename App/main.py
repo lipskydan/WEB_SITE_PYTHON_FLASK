@@ -43,7 +43,7 @@ def price():
     return render_template('price.html', data=items)
 
 
-@app.route('/administration')
+@app.route('/admin')
 def administration():
     items = Item.query.order_by(Item.price).all()
     return render_template('administration.html', data=items)
